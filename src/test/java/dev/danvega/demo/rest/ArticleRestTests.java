@@ -13,7 +13,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @WebMvcTest
 @AutoConfigureMockMvc
 public class ArticleRestTests {
-
+    public org.springframework.beans.factory.BeanFactory
     @Test
     public void test_should_return_article(@Autowired
                                            MockMvc mockMvc) throws Exception {
