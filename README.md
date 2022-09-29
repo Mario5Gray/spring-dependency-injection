@@ -4,7 +4,7 @@ This guide will walk you through the basics of Spring Dependency Injection.
 
 ## The Age of Dependant Technologies
 
-Dependency injection is a very nuanced technique that we utilize every day even in the analog world. 
+Dependency injection is a very nuanced technique that we actually utilize every day in the analog world. 
 For example: The archaic telephone required plastic or metal buttons in order to dial a destination telephone.
 This hypothetical phone didn't care what the buttons represent - number, letters, shapes, etc - It just needs
 them to interface the underlaying communication system. these days, that button layout is a flat 
@@ -17,6 +17,21 @@ the telephone depends on buttons - buttons are a dependency of the telephone - b
 In Hollwood we call this idea 'dont call us, we'll call you'. It means that DI ultimately resolves when
 an object is ready by collecting it's dependencies, and all it's dependencies dependencies Until the full
 graph of dependencies is met.
+
+**_NOTE**_: Although a telephone makes calls, the calls themselves are not dependants of the phone. The telephone is merely producing the operation of a phone call.
+
+## Part of the new Tech Stack
+
+DI grants us the ability to compose an object of any complexity, and expect that components it needs will be
+fulfilled at least when needed. Some component A required a component B, and component B requires another component C. The DI system is going to start at the edge component - C, for which B is produced, then give rise to an A. The logical operation looks a little like the following graph:
+
+[Component A] <- [Component B] <- [Component C]
+
+This is called a dependency graph. and forms the basis of any DI system that can handle non/trivial dependency relationships such as the above scenario. It is because of this, that frameworks like Spring provide such value. Behind the scenes, Spring implements a powerful dependency graph fulfillment system which ensures the state of your application before it goes live.
+
+## Dependency Injection in practice
+
+Because we are talking about Spring, and since Spring is written largely in Java, we will use Object Oriented design principles going forward. We want to collect objects by constructing them and feeding them to their upstream dependants; this lets
 
 what ISNT dependency injection:
 Graph optimizer, Instance verification, object compositing.
