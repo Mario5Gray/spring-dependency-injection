@@ -2,9 +2,35 @@
 
 This guide will walk you through the basics of Spring Dependency Injection.
 
-## The Inversion of Control Container
+## The Age of Dependant Technologies
 
-The Inversion of Control (IoC) container provides the dependency injection support to your applications
+Dependency injection is a very nuanced technique that we utilize every day even in the analog world. 
+For example: The archaic telephone required plastic or metal buttons in order to dial a destination telephone.
+This hypothetical phone didn't care what the buttons represent - number, letters, shapes, etc - It just needs
+them to interface the underlaying communication system. these days, that button layout is a flat 
+sliver of glass with some haptic motors and touch sensors to 'feel' our fingertips on virtual buttons.
+
+It is up to the developer to decide how a telephone interacts with its buttons, be it metal, plastic, glass 
+or even exposed contacts. Dependency Injection represents the collaboration of buttons to telephone; thus, 
+the telephone depends on buttons - buttons are a dependency of the telephone - but not the other way around.
+
+In Hollwood we call this idea 'dont call us, we'll call you'. It means that DI ultimately resolves when
+an object is ready by collecting it's dependencies, and all it's dependencies dependencies Until the full
+graph of dependencies is met.
+
+what ISNT dependency injection:
+Graph optimizer, Instance verification, object compositing.
+What IS dependency Injection:
+Seperation of Concerns, Dependency graph compositioning,
+
+
+
+core principals  are separation of concerns, reduce coupling, increased testability
+when its implemented you interface with 
+3 main ways to use DI: Constructor Injection, Setter Injection, reflection Injection.
+
+At the heart of the Spring Framework, 
+Spring's Inversion of Control (IoC) container provides the dependency injection (DI) support to your applications
 that enables you to configure and integrate application and infrastructure components together (see
 Figure). Through IoC, your applications may achieve a low-level of coupling, because all of the bean
 configuration can be specified in terms of IoC idioms (such as property collaborators and constructors).
