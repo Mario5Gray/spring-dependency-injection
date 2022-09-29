@@ -11,8 +11,7 @@ them to interface the underlaying communication system. these days, that button 
 sliver of glass with some haptic motors and touch sensors to 'feel' our fingertips on virtual buttons.
 
 It is up to the developer to decide how a telephone interacts with its buttons, be it metal, plastic, glass 
-or even exposed contacts. Dependency Injection represents the collaboration of buttons to telephone; thus, 
-the telephone depends on buttons - buttons are a dependency of the telephone - but not the other way around.
+or even exposed contacts. Dependency Injection represents the collaboration of organizing buttons to telephone; thus, the telephone depends on buttons - buttons are a dependency of the telephone - but not the other way around.
 
 In Hollwood we call this idea 'dont call us, we'll call you'. It means that DI ultimately resolves when
 an object is ready by collecting it's dependencies, and all it's dependencies dependencies Until the full
@@ -22,7 +21,7 @@ graph of dependencies is met.
 
 ## Part of the new Tech Stack
 
-DI grants us the ability to compose an object of any complexity, and expect that components it needs will be
+DI grants us the ability to compose objects of near any complexity, and expect that components it needs will be
 fulfilled at least when needed. Some component A required a component B, and component B requires another component C. The DI system is going to start at the edge component - C, for which B is produced, then give rise to an A. The logical operation looks a little like the following graph:
 
 [Component A] <- [Component B] <- [Component C]
@@ -31,18 +30,53 @@ This is called a dependency graph. and forms the basis of any DI system that can
 
 ## Dependency Injection in practice
 
-Because we are talking about Spring, and since Spring is written largely in Java, we will use Object Oriented design principles going forward. We want to collect objects by constructing them and feeding them to their upstream dependants; this lets
+Because we are talking about Spring, and since Spring is written largely in Java, we will use Object Oriented design principles going forward. We want to collect objects by constructing them and feeding them to their upstream dependants; this lets us think in terms of object access. The usual way DI can intervene in supplying object dependencies are:
+
+* Constructor Injection
+    This method allows a stateless design where required components become arguments on an object's constructor. This is also the preferred method since we are typically sure once an object is created that it has everything it needs and its composition doesnt change.
+
+Constructor Injection is a plain as standard Java Objects but dont behave like Java Beans since you may not have setters for all arguments of the constructor:
+
+```java
+public class ComponentA{
+    ComponentB b;
+
+    void ComponentA(ComponentB b) {
+        this.b = b;
+     }
+}
+```
+
+* Field Injection (or Setter)
+    This method allows a little flexability in that even after object construction, we can supply an object's dependencies 'lazily'. That is, a constructed object is usable but not within the application specification. Field Injection may use setters, or field interrogation (reflection) to determine what the dependencies are.
+
+Field Injection works better where inplace are Java Beans that declare setters for each field:
+
+```java
+public class ComponentB{
+    @Autowired ComponentC c;
+
+    void ComponentB() {}
+}
+```
+
 
 what ISNT dependency injection:
 Graph optimizer, Instance verification, object compositing.
 What IS dependency Injection:
 Seperation of Concerns, Dependency graph compositioning,
 
-
-
 core principals  are separation of concerns, reduce coupling, increased testability
 when its implemented you interface with 
 3 main ways to use DI: Constructor Injection, Setter Injection, reflection Injection.
+
+
+## Enter the Inversion of Control Container
+
+Dependency Injection alone is not enough to solve the problem of dependency graph fulfillment.  What we need is a component that does the job of finding dependencies and dependant, organize construction and notify the deveoloper if problems arise such as [circular dependencies]().
+
+The Spring ApplicationContext does this job. lets take a quick look at what this involves in practice.
+
 
 At the heart of the Spring Framework, 
 Spring's Inversion of Control (IoC) container provides the dependency injection (DI) support to your applications
